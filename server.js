@@ -8,7 +8,6 @@ const passport = require("passport");
 const session = require("express-session");
 
 const ObjectID = require("mongodb").ObjectID;
-new ObjectID(THE_ID);
 
 const app = express();
 app.set("view engine", "pug");
@@ -53,13 +52,16 @@ myDB(async (client) => {
       });
     });
 });
+
+app.route("/").get((req, res) => {
+  res.render(process.cwd() + "/views/pug/index", {
+    title: "Hello",
+    message: "Please login",
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Listening on port " + PORT);
 });
-// app.route("/").get((req, res) => {
-//   res.render(process.cwd() + "/views/pug/index", {
-//     title: "Hello",
-//     message: "Please login",
-//   });
-// });
+
